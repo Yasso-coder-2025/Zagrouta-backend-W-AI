@@ -28,6 +28,8 @@ public class User {
 
     private String phone;
 
+    private String gender; // (MALE, FEMALE)
+
     @Column(name = "created_at")
     @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // عشان التاريخ يطلع بشكل مرتب في الرد
     private LocalDateTime createdAt = LocalDateTime.now();

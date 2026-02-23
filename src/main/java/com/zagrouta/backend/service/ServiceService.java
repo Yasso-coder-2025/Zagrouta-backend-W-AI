@@ -20,14 +20,14 @@ public class ServiceService {
         this.userRepository = userRepository;
     }
 
-    public ServiceEntity addService(ServiceEntity service, Long userId) {
+    public ServiceEntity addService(ServiceEntity service, @org.springframework.lang.NonNull Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        
+
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             service.setUser(user);
             // الحفظ وإرجاع النتيجة
-            return serviceRepository.save(service); 
+            return serviceRepository.save(service);
         }
         return null;
     }

@@ -18,7 +18,7 @@ public class UserService {
     }
 
     // 1. دالة لتسجيل مستخدم جديد (Create User)
-    public User saveUser(User user) {
+    public User saveUser(@org.springframework.lang.NonNull User user) {
         // (مستقبلاً هنا هنحط كود تشفير الباسورد قبل الحفظ)
         return userRepository.save(user);
     }
@@ -26,6 +26,38 @@ public class UserService {
     // 2. دالة لجلب مستخدم بالإيميل
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    // إضافة جديدة لتحديث كلمة المرور
+    public boolean updatePassword(String email, String newPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            // (مستقبلاً هنا هنحط كود تشفير الباسورد قبل الحفظ)
+            user.setPassword(newPassword);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    // إضافة جديدة لتحديث بيانات المتسخدم (الاسم ورقم الهاتف والنوع) بتأكيد كلمة
+    // المرور
+    public boolean updateUserProfile(String email, String password, String newFullName, String newPhone,
+            String newGender) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            // نأكد من أن كلمة المرور صحيحة قبل التعديل
+            if (user.getPassword().equals(password)) {
+                user.setFullName(newFullName);
+                user.setPhone(newPhone);
+                user.setGender(newGender);
+                userRepository.save(user);
+                return true;
+            }
+        }
+        return false;
     }
 
     // 3. دالة للتحقق هل الإيميل موجود ولا لأ
