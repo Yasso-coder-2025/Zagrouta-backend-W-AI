@@ -39,4 +39,31 @@ public class ServiceService {
     public List<ServiceEntity> getServicesByVendor(Long vendorId) {
         return serviceRepository.findAllByUserId(vendorId);
     }
+
+    public void deleteService(Long serviceId, Long vendorId) {
+        ServiceEntity service = serviceRepository.findById(serviceId).orElseThrow(() -> new RuntimeException("Service not found"));
+        if (!service.getUser().getId().equals(vendorId)) {
+            throw new RuntimeException("Unauthorized to delete this service");
+        }
+        serviceRepository.delete(service);
+    }
+
+    public ServiceEntity getServiceById(Long id) {
+        return serviceRepository.findById(id).orElseThrow(() -> new RuntimeException("Service not found"));
+    }
+
+    public ServiceEntity updateService(Long serviceId, Long vendorId, ServiceEntity updatedData) {
+        ServiceEntity service = serviceRepository.findById(serviceId).orElseThrow(() -> new RuntimeException("Service not found"));
+        if (!service.getUser().getId().equals(vendorId)) {
+            throw new RuntimeException("Unauthorized to update this service");
+        }
+        service.setName(updatedData.getName());
+        service.setCategory(updatedData.getCategory());
+        service.setPrice(updatedData.getPrice());
+        service.setLocation(updatedData.getLocation());
+        service.setImageUrl(updatedData.getImageUrl());
+        service.setDescription(updatedData.getDescription());
+        
+        return serviceRepository.save(service);
+    }
 }

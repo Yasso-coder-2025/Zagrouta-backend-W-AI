@@ -39,4 +39,19 @@ public class ServiceController {
     public List<ServiceEntity> getServicesByVendor(@PathVariable Long userId) {
         return serviceService.getServicesByVendor(userId);
     }
+
+    @DeleteMapping("/delete/{serviceId}/{vendorId}")
+    public void deleteService(@PathVariable Long serviceId, @PathVariable Long vendorId) {
+        serviceService.deleteService(serviceId, vendorId);
+    }
+
+    @GetMapping("/{id}")
+    public ServiceEntity getServiceById(@PathVariable Long id) {
+        return serviceService.getServiceById(id);
+    }
+
+    @PutMapping("/update/{serviceId}/{vendorId}")
+    public ServiceEntity updateService(@PathVariable Long serviceId, @PathVariable Long vendorId, @RequestBody ServiceEntity updatedData) {
+        return serviceService.updateService(serviceId, vendorId, updatedData);
+    }
 }

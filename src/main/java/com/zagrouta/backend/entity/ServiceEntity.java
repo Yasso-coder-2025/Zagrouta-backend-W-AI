@@ -25,10 +25,14 @@ public class ServiceEntity {
     private String description;
 
     @Column(nullable = false)
-    private Double price;
+    private String price;
+
+    @Column(name = "category")
+    private String category;
 
     private String location;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String imageUrl;
 
     // --- تعديل "التعويذة" هنا عشان البيانات تظهر في Postman ---
