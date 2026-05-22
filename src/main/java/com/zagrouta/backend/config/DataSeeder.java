@@ -23,17 +23,17 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (serviceRepository.count() < 10) {
-            // Find or create "Yassin hesham" vendor
-            User vendor = userRepository.findByEmail("Yassin@test.com").orElseGet(() -> {
-                User newVendor = new User();
-                newVendor.setFullName("Yassin hesham");
-                newVendor.setEmail("Yassin@test.com");
-                newVendor.setPassword("12345678");
-                newVendor.setRole("VENDOR");
-                return userRepository.save(newVendor);
-            });
+        // Find or create "Yassin hesham" vendor
+        User vendor = userRepository.findByEmail("Yassin@test.com").orElseGet(() -> {
+            User newVendor = new User();
+            newVendor.setFullName("Yassin hesham");
+            newVendor.setEmail("Yassin@test.com");
+            newVendor.setPassword("12345678");
+            newVendor.setRole("VENDOR");
+            return userRepository.save(newVendor);
+        });
 
+        if (serviceRepository.count() < 10) {
             // Insert dummy data
             List<ServiceEntity> dummyServices = Arrays.asList(
                 new ServiceEntity(null, "قاعة الماسة", "قاعة أفراح فخمة", "25,000 ج.م", "venue", "مدينة نصر، القاهرة", "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=500&q=60", vendor),
