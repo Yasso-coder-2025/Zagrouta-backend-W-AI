@@ -22,6 +22,11 @@ public class ReviewController {
         return reviewService.getReviewsByService(serviceId);
     }
 
+    @GetMapping("/vendor/{vendorId}")
+    public List<Review> getReviewsByVendor(@PathVariable Long vendorId) {
+        return reviewService.getReviewsByVendor(vendorId);
+    }
+
     @PostMapping("/add")
     public Review addReview(@RequestBody Map<String, Object> payload) {
         Long serviceId = Long.valueOf(payload.get("serviceId").toString());

@@ -27,6 +27,10 @@ public class ReviewService {
         return reviewRepository.findByServiceIdOrderByCreatedAtDesc(serviceId);
     }
 
+    public List<Review> getReviewsByVendor(Long vendorId) {
+        return reviewRepository.findByVendorIdOrderByCreatedAtDesc(vendorId);
+    }
+
     public Review addReview(Long serviceId, Long userId, String comment, Integer rating) {
         ServiceEntity service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new RuntimeException("Service not found"));

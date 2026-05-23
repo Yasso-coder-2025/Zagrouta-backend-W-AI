@@ -51,6 +51,13 @@ public class Booking {
     @Column(name = "payment_method")
     private String paymentMethod = "CASH";
 
+    @Column(name = "transaction_id")
+    private String transactionId;
+
+    @Lob
+    @Column(name = "payment_receipt_url", columnDefinition = "LONGTEXT")
+    private String paymentReceiptUrl;
+
     @Column(name = "created_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt = LocalDateTime.now();
